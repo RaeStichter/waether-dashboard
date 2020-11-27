@@ -71,8 +71,7 @@ var displayWeather = function(data, city, uvInfo) {
     //repoContainerEl.textContent = "";
     //repoSearchTerm.textContent = searchTerm; // this will display the search term on the screen
 
-    currentWeatherContainerEl.textContent = city;
-    //currentWeatherContainerEl.id = "current-title";
+    //currentWeatherContainerEl.textContent = city;
 
     console.log(data);
     console.log(city);
@@ -85,7 +84,11 @@ var displayWeather = function(data, city, uvInfo) {
     var date = data.dt;
     var dateFormat = new Date(date*1000);
     var str = dateFormat.getMonth() + 1;
+    var strd = dateFormat.getDay();
+    var stry = dateFormat.getFullYear();
     console.log(str);
+    console.log(strd);
+    console.log(stry);
     // var test = dateFormat.getDate;
     // console.log("test" + test);
 
@@ -104,42 +107,13 @@ var displayWeather = function(data, city, uvInfo) {
 
     // create a span element to hold data
     var titleEl = document.createElement("span");
-    titleEl.textContent = cityName;
+    titleEl.textContent = cityName + " (" + str + "/" + strd + "/" + stry + ") ";
     titleEl.id = "current-title";
-    //titleEl.classList = ""
+    titleEl.classList = "current-header";
 
     // append to container
     currentEl.appendChild(titleEl);
 
-    // create a weather icon element
-    // var currentIconEl = document.createElement("span");
-    // currentIconEl.classList = "flex-row align-center";
-    // var currentWeatherIcon = data.weather[0].icon;
-    // var currentWeatherImage =document.createElement("img");
-    // currentWeatherImage.setAttribute("src", "http://openweathermap.org/img/w/" + currentWeatherIcon + ".png");
-    // currentIconEl.appendChild(currentWeatherImage);
-
-    // currentIconEl.appendChild(titleEl);
-
-    // var iconCode = data.weather[0].icon;
-    // console.log(iconCode);
-    // var iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
-    // currrentWeatherIconEl.innerHTML = "<img src='" + iconUrl  + "'>";
-
-
-    
-    // // weather icon
-    // var currentIcon = document.querySelector("#current-title");
-    // currentIcon.innerHTML = "";
-    // var currentWeatherIcon = data.weather[0].icon;
-    // var currentWeatherImage =document.createElement("img");
-    // currentWeatherImage.setAttribute("src", "http://openweathermap.org/img/w/" + currentWeatherIcon + ".png");
-    // currentIcon.appendChild(currentWeatherImage);
-    
-    
-    
-    
-    
     // create a span element to hold data
     var tempEl = document.createElement("span");
     tempEl.textContent = "Temperature: " + temp + " " + String.fromCharCode(176) + "F";
