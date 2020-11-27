@@ -5,6 +5,10 @@
     --light-dark: #E5E7E9 ;
     --dark: #263238;
     --emphasis: #71b4eb;
+    --favorable: #0ea02d;
+    --moderate: #ffee00;
+    --severe: #f50b0b;
+
     --border-radius: .3rem;
 
     /* --primary: #ccdad1;
@@ -158,6 +162,28 @@
   .current-header {
     font-size: 1.25rem;
     font-weight: bold;
+  }
+
+  .uv-favorable,
+  .uv-moderate,
+  .uv-severe {
+    padding: 0.75%;
+    border: none;
+    border-radius: var(--border-radius);
+    color: var(--secondary);
+  }
+
+  .uv-favorable {
+    background-color: var(--favorable);
+  }
+
+  .uv-moderate {
+    background-color: var(--moderate);
+    color: var(--dark);
+  }
+
+  .uv-severe {
+    background-color: var(--severe);
   }
 
 

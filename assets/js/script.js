@@ -137,7 +137,30 @@ var displayWeather = function(data, city, uvInfo) {
 
     // create a span element to hold data
     var uvIndexEl = document.createElement("span");
-    uvIndexEl.textContent = "UV Index: " + uvIndex;
+    uvIndexEl.textContent = "UV Index: ";
+    var uvIndexStatus = document.createElement("span");
+
+
+    //check the UV index
+    if (uvIndex <= 2) {
+        uvIndexStatus.innerHTML = uvIndex;
+        uvIndexStatus.classList = "uv-favorable";
+        uvIndexEl.appendChild(uvIndexStatus);
+    }
+    else if (uvIndex >= 8) {
+        uvIndexStatus.innerHTML = uvIndex;
+        uvIndexStatus.classList = "uv-severe";
+        uvIndexEl.appendChild(uvIndexStatus);
+    }
+    else {
+        uvIndexStatus.innerHTML = uvIndex;
+        uvIndexStatus.classList = "uv-moderate";
+        uvIndexEl.appendChild(uvIndexStatus);
+    }
+
+
+
+    //uvIndexEl.textContent = "UV Index: " + uvIndex;
 
     // append to container
     currentEl.appendChild(uvIndexEl);
