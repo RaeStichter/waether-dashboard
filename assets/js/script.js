@@ -4,6 +4,9 @@ var cityInputEl = document.querySelector("#cityname");
 
 // variables to display the content
 var currentWeatherContainerEl = document.querySelector("#current-weather-container");
+var futureWeatherContainerEl = document.querySelector("#future-weather-container");
+
+var futureIconId = [];
 
 
 var getWeather = function(city) {
@@ -20,11 +23,14 @@ var getWeather = function(city) {
             var lon = data.coord.lon;
             console.log(lat, lon);
             // call for UV (need the lat and lon from above call to make the UV call)
-            var apiUV = "http://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + lon + "&appid=21c61ce7ed658094b3e31aec36acdd81";
+            // FIX THIS, THIS IS NOW CALLING THE ALL IN ONE API
+            // var apiUV = "http://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + lon + "&appid=21c61ce7ed658094b3e31aec36acdd81";
+            var apiUV = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=21c61ce7ed658094b3e31aec36acdd81";
             fetch(apiUV).then(function(response) {
                 response.json().then(function(info) {
                     console.log(info);
-                    displayWeather(data, city, info); 
+                    //displayWeather(data, city, info);
+                    displayWeather(city, info);  
                 });
             });
             //displayWeather(data, city, info);          
@@ -32,6 +38,8 @@ var getWeather = function(city) {
 
       });
     });
+
+    // get the 5 day forcast
 
     // call UV index API, but need the lat and long
     // var lat = data.coord.lat;
@@ -56,47 +64,50 @@ var getWeather = function(city) {
     // });
 
 };
-//getWeather();
 
 
-var displayWeather = function(data, city, uvInfo) {
+
+var displayWeather = function(city, info) {
+    
     // check if api returned any repos.  if user has a user name but no repos
-    if (data.length === 0) {
+    if (info.length === 0) {
         console.log("no data");
         //currentWeatherContainerEl.textContent = "No City found.";
         return;
     }
     
     // clear old content
-    //repoContainerEl.textContent = "";
+    currentWeatherContainerEl.textContent = "";
     //repoSearchTerm.textContent = searchTerm; // this will display the search term on the screen
 
     //currentWeatherContainerEl.textContent = city;
 
-    console.log(data);
+    console.log(info);
     console.log(city);
 
     // format the incoming information
     var cityName = city;
-    var temp = data.main.temp;
-    var humid = data.main.humidity;
-    var windSpeed = data.wind.speed;
-    var date = data.dt;
+    var temp = info.current.temp;
+    var humid = info.current.humidity;
+    var windSpeed = info.current.wind_speed;
+    var uvIndex = info.current.uvi;
+    // date information
+    var date = info.current.dt;
     var dateFormat = new Date(date*1000);
-    var str = dateFormat.getMonth() + 1;
-    var strd = dateFormat.getDay();
-    var stry = dateFormat.getFullYear();
-    console.log(str);
-    console.log(strd);
-    console.log(stry);
+    var month = dateFormat.getMonth() + 1;
+    var day = dateFormat.getDate();
+    var year = dateFormat.getFullYear();
+    console.log(month);
+    console.log(day);
+    console.log(year);
     // var test = dateFormat.getDate;
     // console.log("test" + test);
 
     // from UV
     //var date = uvInfo.date_iso;
-    var uvIndex = uvInfo.value;
+    
 
-    console.log(cityName, temp, humid, windSpeed, date, str, uvIndex);
+    console.log(cityName, temp, humid, windSpeed, date, month, uvIndex);
 
     
     
@@ -107,7 +118,7 @@ var displayWeather = function(data, city, uvInfo) {
 
     // create a span element to hold data
     var titleEl = document.createElement("span");
-    titleEl.textContent = cityName + " (" + str + "/" + strd + "/" + stry + ") ";
+    titleEl.textContent = cityName + " (" + month + "/" + day + "/" + year + ") ";
     titleEl.id = "current-title";
     titleEl.classList = "current-header";
 
@@ -168,7 +179,83 @@ var displayWeather = function(data, city, uvInfo) {
     // append container to the dom
     currentWeatherContainerEl.appendChild(currentEl);
 
-    displayIcons(data);
+
+
+    var date = info.daily[0].dt;
+    var dateFormat = new Date(date*1000);
+    console.log(dateFormat);
+
+    // 5 Day Forecast
+
+    
+   
+    // create a container for the future weather data
+    // var futureEl = document.createElement("div");
+    // //futureEl.classList = "list-item flex-row justify-space-between align-start";
+
+    // id arrray
+    var forecastDay = ["#day0", "#day1", "#day2", "#day3", "#day4"];
+    
+    for (var i = 0; i < 5; i++) {
+        // locate the forcast element
+        var futureEl = document.querySelector(forecastDay[i]);
+        futureEl.classList = "list-item-future flex-column justify-space-between align-start";
+        futureEl.textContent = "";
+        console.log(futureEl);
+    
+        // get the date
+        var date = info.daily[i].dt;
+        var dateFormat = new Date(date*1000);
+        var month = dateFormat.getMonth() + 1;
+        var day = dateFormat.getDate();
+        var year = dateFormat.getFullYear();
+
+        // create the container for the date
+        var dateEl = document.createElement("span");
+        dateEl.textContent = month + "/" + day + "/" + year;
+        //dateEl.id = "future" + i;
+        dateEl.classList = "future-header";
+
+        // append to container
+        futureEl.appendChild(dateEl);
+
+
+        // create span for the icon
+        var iconEl = document.createElement("span");
+        iconEl.textContent = "";
+        iconEl.id = "future" + i;
+        futureIconId[i] = "#future" + i;
+        console.log(iconEl.id);
+
+        // append to the container
+        futureEl.appendChild(iconEl);
+
+
+        // get the temperature
+        var temp = info.daily[i].temp.day;
+        
+        // create container for the temperature
+        var futureTempEl = document.createElement("span");
+        futureTempEl.textContent = "Temp: " + temp + " " + String.fromCharCode(176) + "F";
+        futureTempEl.classList = "future-text";
+
+        // append to container
+        futureEl.appendChild(futureTempEl);
+        
+        // get the humidity
+        var humid = info.daily[i].humidity;
+        
+        // create container for the temperature
+        var futureHumEl = document.createElement("span");
+        futureHumEl.textContent = "Humidity: " + humid + " %";
+        futureHumEl.classList = "future-text";
+
+        // append to container
+        futureEl.appendChild(futureHumEl);
+    }
+
+
+    displayIcons(info);
 };
 
 
@@ -176,14 +263,29 @@ var displayWeather = function(data, city, uvInfo) {
 
 
 var displayIcons = function(data) {
-    // weather icon
+    // weather icon current
     var currentIcon = document.querySelector("#current-title");
     //currentIcon.innerHTML = "";
-    var currentWeatherIcon = data.weather[0].icon;
+    var currentWeatherIcon = data.current.weather[0].icon;
     var currentWeatherImage =document.createElement("img");
     currentWeatherImage.setAttribute("src", "http://openweathermap.org/img/w/" + currentWeatherIcon + ".png");
     currentIcon.appendChild(currentWeatherImage);
-}
+
+    // weather icon future
+    //var forecastDay = ["#day0", "#day1", "#day2", "#day3", "#day4"];
+    
+    for (var i = 0; i < 5; i++) {
+        // locate the forcast element
+        var futureIcon = document.querySelector(futureIconId[i]);
+        console.log(futureIcon);
+
+        var futureWeatherIcon = data.daily[i].weather[0].icon;
+        var futureWeatherImage =document.createElement("img");
+        futureWeatherImage.setAttribute("src", "http://openweathermap.org/img/w/" + futureWeatherIcon + ".png");
+        futureIcon.appendChild(futureWeatherImage);
+
+    };
+};
 
 
 

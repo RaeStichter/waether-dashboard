@@ -164,6 +164,17 @@
     font-weight: bold;
   }
 
+  .future-header {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--secondary);
+  }
+
+  .future-text {
+    font-size: 0.9rem;
+    color: var(--secondary);
+  }
+
   .uv-favorable,
   .uv-moderate,
   .uv-severe {
@@ -224,6 +235,19 @@
     background-color: transparent;
     /* color: var(--primary); */
     text-decoration: none;
+    width: 100%;
+    flex-flow: nowrap;
+  }
+
+  .list-item-future {
+    margin-bottom: 10px;
+    padding: 1.5%;
+    border-radius: var(--border-radius);
+    background-color: var(--tertiary);
+    /* color: var(--primary); */
+    text-decoration: none;
+    display: flex;
+    flex-flow: row nowrap;
   }
   
   /* .list-item:hover {
@@ -261,6 +285,7 @@
     padding: 2.5%;
     border: none;
     border-radius: calc(.18rem - 1px) calc(.18rem - 1px) 0 0;
+    width: 100%;
   }
   
   .card-body {
@@ -277,6 +302,15 @@
     border: 2px solid var(--light-dark);
     border-radius: var(--border-radius);
     background-color: transparent;
+  }
+
+  /* This controls the 5 day forecast and the way the days are displayed */
+  .card-future {
+    padding: 2.5%;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: start;
+    width: auto;
   }
   
   /* FORM */
