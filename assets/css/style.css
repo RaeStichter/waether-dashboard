@@ -1,5 +1,5 @@
 :root {
-    --primary: #8191b3 ; /* Use for the background */
+    --primary: #c5d7f7 ; /* Use for the background */
     --secondary: #FBFCFC ; /* Use for the background of the divs and text box */
     --tertiary: #2196F3 ; /* Use for the futture forcast content and the search button */
     --light-dark: #E5E7E9 ;
@@ -282,7 +282,7 @@
     color: var(--dark);
     background-color: transparent;
     font-size: 1.25rem;
-    padding: 2.5%;
+    padding: 1.5%;
     border: none;
     border-radius: calc(.18rem - 1px) calc(.18rem - 1px) 0 0;
     width: 100%;
@@ -298,10 +298,18 @@
 
   /* Added */
   .card-content {
-    margin: 0 0 20px 0;
+    margin: 0 0 0 0;
     border: 2px solid var(--light-dark);
     border-radius: var(--border-radius);
     background-color: transparent;
+  }
+
+  .card-content-history {
+    margin: 0 0 0 0;
+    padding: 3.5%;
+    border: 2px solid var(--light-dark);
+    border-radius: var(--border-radius);
+    background-color: var(--secondary);
   }
 
   /* This controls the 5 day forecast and the way the days are displayed */
