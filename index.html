@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,400i,700&display=swap" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <title>Weather Dashboard</title>
+</head>
+
+<body class="flex-column min-100-vh">
+    <header class="jumbotron">
+        <h1 class="jumbotron-title">Weather Dashboard</h1>
+    </header>
+
+    <main class="flex-row justify-space-between">
+        <!-- Left side of the screen -->
+        <div class="col-12 col-md-4 search-bkg">
+            <!-- Search for a City: -->
+            <div class="card">
+                <h3 class="card-header">Search for a City:</h3>
+                <form id="user-form" class="card-body">
+                <!-- <label class="form-label" for="username">Username</label> -->
+                    <input name="cityname" id="cityname" type="text" autofocus="true" class="form-input" />
+                    <button type="submit" class="form-btn btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+            </div>
+            <!-- Container for searched cities history -->
+            <div class="list-group">
+                <h2> this is where the search hisotry will go</h2>
+            </div>
+        </div>
+        <!-- Right side of screen -->
+        <div class="col-12 col-md-8 display-bkg">
+            <!-- Current Weather -->
+            <div class="card-content list-group" id="current-weather-container">
+                <h2 class="card-header">Current Weather:</h2>
+                
+            </div>
+            <!-- Future Weather -->
+            <div class="card-future list-group" id="future-weather-container">
+                <h2 class="card-header">5-Day Forecast:</h2>
+                <div class="list-item flex-row justify-space-between align-start">
+                    <div id="day0">
+                        day 1
+                    </div>
+                    <div class="list-item-future" id="day1">
+                        day 2
+                    </div>
+                    <div class="list-item-future" id="day2">
+                        day 2
+                    </div>
+                    <div class="list-item-future" id="day3">
+                        day 4
+                    </div>
+                    <div class="list-item-future" id="day4">
+                        day 5
+                    </div>
+                </div>
+
+
+                
+
+            </div>
+        </div>
+    </main>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="./assets/js/script.js"></script>
+</body>
+
+</html>
